@@ -2,8 +2,8 @@ remove_file "README.rdoc"
 create_file "README.md", "TODO"
 
 #Especify ruby version to be at least version 2.0.0
-inject_into_file "Gemfile", after: "source 'https://rubygems.org'" do <<-'RUBY'
-  ruby '2.0.0'
+inject_into_file "Gemfile", after: "source 'https://rubygems.org'\n\n" do <<-'RUBY'
+ruby '2.0.0'
 RUBY
 end
 
@@ -50,3 +50,14 @@ generate "rspec:install"
 
 #Generates cucumber
 generate "cucumber:install"
+
+
+#Git configuration
+git :init
+append_file ".gitignore", "/config/database.yml"
+append_file ".gitignore", ".sass-cache/*"
+append_file ".gitignore", ".DS_Store"
+append_file ".gitignore", "*.dump"
+append_file ".gitignore", "/public/uploads" #For when using carrierwave later on
+run "cp config/database.yml config/example_database.yml"
+git add: ".", commit: "-m 'initial commit'"
