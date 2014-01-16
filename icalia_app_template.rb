@@ -87,7 +87,7 @@ append_file ".gitignore", ".DS_Store\n"
 append_file ".gitignore", "*.dump\n"
 append_file ".gitignore", "/public/uploads\n" #For when using carrierwave later on
 run "cp config/database.yml config/example_database.yml"
-copy_file '~/workspace/customGenerator/templates/figaro_application.yml', 'config/example_application.yml'
+copy_file "#{GENERATOR_TEMPLATE_PATH}/templates/figaro_application.yml", 'config/example_application.yml'
 git add: "."
 
 if yes? "Do you want me to add an initial commit?"
