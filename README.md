@@ -62,6 +62,7 @@ curl -L https://raw2.github.com/IcaliaLabs/railsAppCustomGenerator/master/update
 
 ```console
 wget --no-check-certificate https://raw2.github.com/IcaliaLabs/railsAppCustomGenerator/master/update.sh -O - | sh
+```
 
 
 ## Authors
