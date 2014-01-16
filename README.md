@@ -46,6 +46,24 @@ cp ~/.icalialabs_rails_generator_template/templates/railsrc_template ~/.railsrc
 rails new myNewCoolApp
 ```
 
+## Updating
+
+We have provided an easy automatic installer for you to update...
+
+You can update it via 'curl' or 'wget'.
+
+#### via 'curl'
+
+```console
+curl -L https://raw2.github.com/IcaliaLabs/railsAppCustomGenerator/master/update.sh | sh
+```
+
+#### via 'wget'
+
+```console
+wget --no-check-certificate https://raw2.github.com/IcaliaLabs/railsAppCustomGenerator/master/update.sh -O - | sh
+
+
 ## Authors
 
 **Abraham Kuri**
