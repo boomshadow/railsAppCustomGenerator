@@ -35,6 +35,18 @@ gem_group :development do
   gem "binding_of_caller"
 end
 
+if yes? "Do you want me to add devise auth?"
+  gem "devise"
+  run 'bundle install --quiet'
+  generate "devise:install"
+  application(nil, env: 'development') do
+    "config.action_mailer.default_url_options = { :host => 'localhost:3000' }"
+  end
+  if yes? "Do you want me to create a User model for authentication?"
+    generate "devise User"
+  end
+end
+
 run 'bundle install --quiet'
 
 #Generates figaro configuration
