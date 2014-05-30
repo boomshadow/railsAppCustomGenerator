@@ -4,7 +4,7 @@ create_file "README.md", @app_name.capitalize
 
 #Especify ruby version to be at least version 2.0.0
 inject_into_file "Gemfile", after: "source 'https://rubygems.org'\n\n" do <<-'RUBY'
-ruby '2.1.0'
+ruby '2.1.2'
 RUBY
 end
 
