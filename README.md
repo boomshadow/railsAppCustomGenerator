@@ -1,4 +1,4 @@
-![Icalia Labs](http://icalialabs.com/img/logo.png)
+![Icalia Labs](https://raw.githubusercontent.com/IcaliaLabs/kaishi/master/logo.png)
 
 railsAppCustomGenerator is a custom rails app template we use at Icalia Labs to generate brand new rails apps. It includes the setup for the test environment, figaro setup, git initialization and postgresql as the default database.
 
