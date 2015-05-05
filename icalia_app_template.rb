@@ -2,40 +2,50 @@ GENERATOR_TEMPLATE_PATH = "~/.icalialabs_rails_generator_template"
 remove_file "README.rdoc"
 create_file "README.md", @app_name.capitalize
 
-#Especify ruby version to be at least version 2.0.0
-inject_into_file "Gemfile", after: "source 'https://rubygems.org'\n\n" do <<-'RUBY'
-ruby '2.1.2'
-RUBY
+ruby_version = `rbenv global`.strip
+
+if yes? "Do you want to set the Ruby version for the project?"
+  unless yes? "Is Ruby #{ruby_version} you current version?"
+    ruby_version = ask "What version of Ruby are yo going to use?"#Especify ruby version to be at least version 2.0.0
+  end
+
+  inject_into_file "Gemfile", after: "source 'https://rubygems.org'\n\n" do
+    %Q{
+ruby '#{ruby_version}'
+    }
+  end
 end
 
 gem "figaro"
-gem "unicorn"
+gem "puma"
 
+# Test gems
 gem_group :test do
-  gem "cucumber-rails", require: false
   gem "database_cleaner"
-  gem "email_spec"
   gem "shoulda-matchers"
-  gem 'selenium-webdriver'
 end
 
+# API gems
+if yes? "Are you building an API?"
+  gem "versionist"
+  gem "active_model_serializers", github: "rails-api/active_model_serializers", branch: "0-8-stable"
+end
+
+# Rspec and Factories
 gem_group :development, :test do
-  gem "rspec-rails"
-  gem 'debugger2', :git => "git://github.com/ko1/debugger2.git"
-  gem "factory_girl_rails"
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'pry'
 end
 
-gem_group :production do
+# Production and staging gems
+gem_group :production, :staging do
   gem "rails_12factor"
 end
 
-gem_group :development do
-  gem "better_errors"
-  gem "binding_of_caller"
-end
-
-if yes? "Do you want me to add devise auth?"
+# User Handling
+if yes? "Do you want to add devise auth?"
   gem "devise"
   run 'bundle install --quiet'
   generate "devise:install"
@@ -50,26 +60,17 @@ end
 run 'bundle install --quiet'
 
 #Generates figaro configuration
-generate "figaro:install"
+run 'figaro install'
 #TODO: add application_example.yml
 
-#Generates unicorn configuration
-create_file "Procfile", "web: bundle exec unicorn -p $PORT -c ./config/unicorn.rb"
-copy_file "#{GENERATOR_TEMPLATE_PATH}/templates/unicorn_template.rb", 'config/unicorn.rb'
+#Generates puma configuration
+create_file "Procfile", "web: bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}"
 
 #Generates rspec config
 generate "rspec:install"
 
-#Generates cucumber
-generate "cucumber:install"
-
 #Configures spec/spec_helper.rb file
 directory "#{GENERATOR_TEMPLATE_PATH}/rspec_support_files", 'spec/support', :recursive => false
-
-inject_into_file 'spec/spec_helper.rb', after: "require 'rspec/rails'\n" do <<-'RUBY'
-require 'email_spec'
-RUBY
-end
 
 #Configures application.rb
 application do
@@ -77,8 +78,8 @@ application do
   config.generators do |g|
     g.test_framework :rspec, fixture: true
     g.fixture_replacement :factory_girl, dir: 'spec/factories'
-    g.view_specs false
-    g.helper_specs false
+    g.view_specs = false
+    g.helper_specs = false
     g.stylesheets = false
     g.javascripts = false
     g.helper = false
@@ -113,4 +114,3 @@ if yes? "Do you want me to add the remote?"
 end
 
 readme "#{GENERATOR_TEMPLATE_PATH}/README"
-
