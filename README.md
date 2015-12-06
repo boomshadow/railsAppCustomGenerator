@@ -11,13 +11,13 @@ You can install it via 'curl' or 'wget'.
 #### via 'curl'
 
 ```console
-curl -L https://raw2.github.com/IcaliaLabs/railsAppCustomGenerator/master/install.sh | sh
+curl -L https://raw.githubusercontent.com/IcaliaLabs/railsAppCustomGenerator/master/install.sh | sh
 ```
 
 #### via 'wget'
 
 ```console
-wget --no-check-certificate https://raw2.github.com/IcaliaLabs/railsAppCustomGenerator/master/install.sh -O - | sh
+wget --no-check-certificate https://raw.githubusercontent.com/IcaliaLabs/railsAppCustomGenerator/master/install.sh -O - | sh
 ```
 
 ### The manual way
@@ -55,13 +55,13 @@ You can update it via 'curl' or 'wget'.
 #### via 'curl'
 
 ```console
-curl -L https://raw2.github.com/IcaliaLabs/railsAppCustomGenerator/master/update.sh | sh
+curl -L https://raw.githubusercontent.com/IcaliaLabs/railsAppCustomGenerator/master/update.sh | sh
 ```
 
 #### via 'wget'
 
 ```console
-wget --no-check-certificate https://raw2.github.com/IcaliaLabs/railsAppCustomGenerator/master/update.sh -O - | sh
+wget --no-check-certificate https://raw.githubusercontent.com/IcaliaLabs/railsAppCustomGenerator/master/update.sh -O - | sh
 ```
 
 
